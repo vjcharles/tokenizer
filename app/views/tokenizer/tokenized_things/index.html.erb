@@ -1,0 +1,12 @@
+<h1>TokenizedThings</h1>
+<ul>
+   <% for thing in @things %>
+     <li>
+       <%= thing.class_name %>
+       <br />
+       <%= thing.token %>
+     </li>
+   <% end %>
+</ul>
+<p><%= link_to "Tokenized Things", root_url %></p>
+<p><%#= link_to "Simulate Tokenized Thing", main_app.simulate_tokenized_thing_path %></p>

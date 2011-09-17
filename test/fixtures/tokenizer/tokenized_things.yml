@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  class_name: MyString
+  token: MyString
+  parameters: MyText
+  redirect_url_success: MyString
+  redirect_url_failure: MyString
+  lifespan: 2011-09-17 12:10:24
+
+two:
+  class_name: MyString
+  token: MyString
+  parameters: MyText
+  redirect_url_success: MyString
+  redirect_url_failure: MyString
+  lifespan: 2011-09-17 12:10:24
