@@ -1,6 +1,8 @@
 Tokenizer
 =========
 
+Generate one-time use authenticated links to arbitrary rails resources. Used in mailer to give users single use updates.
+
 ## to get this running from within an app ##
 
     mount Tokenizer::Engine => "/tokenizer", :as => "tokenizer_engine"
@@ -32,51 +34,48 @@ creating a user action without saving it
   an_action = UserAction.new(actual_value: 10, priority_id: 1, user_id: 1, done_at: Time.now)
   an_action.tokenize_me
 
-you can find tokenized values like so: 
+you can find tokenized values 
 
-  Tokenizer::TokenizedThing.all
+    Tokenizer::TokenizedThing.all
 
 * There is no user_action id, because it doesn't exist yet.
-
 
 
 ## Engine Design ##
 
 * Make engine
 
-    rails plugin new tokenizer --mountable
+        rails plugin new tokenizer --mountable
 
 * Mount the engine in your_app/config/routes
 
-    mount Tokenizer::Engine => "/tokenizer"
+        mount Tokenizer::Engine => "/tokenizer"
 
 * To access engine paths from within the parent app, 
 
-    mount Tokenizer::Engine => "/tokenizer", :as => "tokenizer_engine"
+        mount Tokenizer::Engine => "/tokenizer", :as => "tokenizer_engine"
 
-in a view 
-
-    redirect_to tokenizer_engine.root_path
+in a view `redirect_to tokenizer_engine.root_path`
 
 * From within the engine
 
-    <%= link_to "Simulate Tokenized Thing", main_app.simulate_tokenized_thing_path %>
+        <%= link_to "Simulate Tokenized Thing", main_app.simulate_tokenized_thing_path %>
 
 * Generating the tokenized_thing
 
-    rails g model tokenized_thing class_name:string token:string parameters:text redirect_url_success:string redirect_url_failure:string lifespan:datetime 
+        rails g model tokenized_thing class_name:string token:string parameters:text redirect_url_success:string redirect_url_failure:string lifespan:datetime 
 
 * Run
 
-    rake db:create
-    rake db:migrate
+        rake db:create
+        rake db:migrate
 
-make a test object
+* Make a test object
 
-    Tokenizer::TokenizedThing.create!(:class_name => 'UserAction', :token => 'a_unique_token', :parameters => '{"this": "is", "a": "JSON", "string": "bitches"}', :lifespan => Time.now + 1.year)
+        Tokenizer::TokenizedThing.create!(:class_name => 'UserAction', :token => 'a_unique_token', :parameters => '{"this": "is", "a": "JSON", "string": "bitches"}', :lifespan => Time.now + 1.year)
 
 
-## Tests ## 
+## Tests ##
 
     cd tokenizer/test
     ruby -Itest test/unit/tokenizer/tokenized_thing_test.rb
@@ -89,5 +88,7 @@ make a test object
 
 ## Thanks ##
 
-Thanks to (http://railscasts.com/episodes/277-mountable-engines)[Ryan Bates]
+Thanks to Ryan Bates http://railscasts.com/episodes/277-mountable-engines
 
+
+## MIT License
